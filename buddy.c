@@ -131,7 +131,7 @@ int alloc_id(int needed_order)
 					// recievsily get left-side
 				id=alloc_id(needed_order +1);
 				// get right side's id   based on lefts id and needed_order
-				test= (1<<(needed_order -MIN_ORDER));
+				test= (1<<needed_order)/PAGE_SIZE);
 				right =id+test;
 				// add right side to the appropriate list
 				list_add(&g_pages[right].list, &free_area[needed_order]);
