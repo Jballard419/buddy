@@ -107,23 +107,24 @@ and break it apart piece by piece
 */
 int alloc_id(int needed_order)
 {
-	page_t left;
+	page_t*  left;
 	int id,right;
 	int test;
 
 	for (int i = needed_order; i <= MAX_ORDER; i++)
 	{
-		if (!list_empty(free_area[i]))
+		if (!list_empty(&free_area[i]))
 		 {
 			/* code */
 			if(i == needed_order)
 			{
 				//get the struct and Id number
 				left =list_entry(&free_area[i].next, page_t, list);
-				id=left.id;
-				left.order=needed_order;
+				id=left->id;
+				left->order=needed_order;
 				//remove it from this list
-				list_del(&left.list);
+        
+				list_del(&left->list);
 			}
 			else
 			{
@@ -197,7 +198,7 @@ void buddy_free(void *addr)
 	{
 		list_del(&g_pages[buddy_id].list);
 		order ++;
-		addr = addr if buddy_id >  page_id else buddy_addr;
+		addr =  buddy_id >  page_id? addr : buddy_addr;
 		page_id =ADDR_TO_PAGE(addr);
 		buddy_addr = BUDDY_ADDR(addr, order);
 		buddy_id = ADDR_TO_PAGE(buddy_addr);
