@@ -123,15 +123,15 @@ int alloc_id(int needed_order)
 				id=left->id;
 				//remove it from this list
 
-				list_del(&g_pages[id].list);
+				list_del(&(left->list));
 			}
 			else
 			{
 					// recievsily get left-side
 				id=alloc_id(needed_order +1);
-				left = g_pages[id];
-				// get right side's id   based on lefts id and needed_order
-				test= (1<<needed_order)/PAGE_SIZE);
+				left =&g_pages[id];
+				// get right side's i   based on lefts id and needed_order
+				test= (1<<needed_order)/PAGE_SIZE;
 				right =id+test;
 				// add right side to the appropriate list
 				list_add(&g_pages[right].list, &free_area[needed_order]);
