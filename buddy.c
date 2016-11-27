@@ -53,6 +53,7 @@ typedef struct {
 	int id;
 	int order;
 	//maybe
+	char *block_addr;
 	/* TODO: DECLARE NECESSARY MEMBER VARIABLES */
 } page_t;
 
@@ -88,6 +89,7 @@ void buddy_init()
 		g_pages[i].order=0;
 		g_pages[i].id=i;
 		INIT_LIST_HEAD(&g_pages[i].list);
+		g_pages[i].block_addr= PAGE_TO_ADDR(i);
 	}
 
 	/* initialize freelist */
