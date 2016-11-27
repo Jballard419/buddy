@@ -121,15 +121,15 @@ int alloc_id(int needed_order)
 				//get the struct and Id number
 				left =list_entry(&free_area[i], page_t, list);
 				id=left->id;
-				left->order=needed_order;
 				//remove it from this list
-        
+
 				list_del(&g_pages[id].list);
 			}
 			else
 			{
 					// recievsily get left-side
 				id=alloc_id(needed_order +1);
+				left = g_pages[id];
 				// get right side's id   based on lefts id and needed_order
 				test= (1<<needed_order)/PAGE_SIZE);
 				right =id+test;
@@ -139,6 +139,8 @@ int alloc_id(int needed_order)
 
 
 			}
+
+		left->order=needed_order;
 		return id;
 		}
 	}
