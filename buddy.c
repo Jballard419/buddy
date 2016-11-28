@@ -98,7 +98,7 @@ void buddy_init()
 	}
 
 	/* add the entire memory as a freeblock */
-	list_add(&g_pages[0].list, &free_area[MAX_ORDER]);
+	list_add( &free_area[MAX_ORDER],&g_pages[0].list);
 	g_pages[0].order =20;
 }
 
@@ -109,7 +109,7 @@ and break it apart piece by piece
 */
 int alloc_id(int needed_order)
 {
-	page_t*  left;
+	page_t*  left = NULL;
 	int id,right;
 	int test;
 
@@ -121,7 +121,7 @@ int alloc_id(int needed_order)
 			if(i == needed_order)
 			{
 				//get the struct and Id number
-				left =list_entry(&free_area[i].next, page_t, list);
+				left = list_entry(free_area[i].next, page_t, list);
 				id=left->id;
 				//remove it from this list
 
