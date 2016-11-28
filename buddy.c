@@ -121,9 +121,10 @@ int alloc_id(int needed_order)
 			if(i == needed_order)
 			{
 				//get the struct and Id number
-				left =list_entry(&free_area[i].next, page_t, list);
-				id=left->id;
+				left = list_entry(&free_area[i].next, page_t, list);
+
 				//remove it from this list
+
 
 				list_del(&(left->list));
 			}
@@ -142,6 +143,7 @@ int alloc_id(int needed_order)
 
 			}
 
+		id=left->id;
 		left->order=needed_order;
 		return id;
 		}
